@@ -13,6 +13,8 @@ struct PexelsImagePicker: View {
     @State private var fetchErrorMessage: String?
     @State private var isLoading = true
     
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -31,6 +33,9 @@ struct PexelsImagePicker: View {
                                     .scaledToFit()
                                     .frame(width: 100, height: 100)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .onTapGesture {
+                                        dismiss()
+                                    }
                             }
                         }
                         .padding()
