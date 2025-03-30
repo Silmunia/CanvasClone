@@ -32,7 +32,12 @@ struct PexelsImagePicker: View {
     }
     
     private func fetchPexelsImages() async {
-        let apiKey = ""
+        guard let apiKey = loadAPIKey() else {
+            fetchErrorMessage = "Failed to load Pexels' API Key"
+            isLoading = false
+            return
+        }
+        
         let urlString = "https://api.pexels.com/v1/curated?per_page=80"
         
         guard let url = URL(string: urlString) else {
@@ -89,6 +94,16 @@ struct PexelsImagePicker: View {
                 isLoading = false
             }
         }
+    }
+    
+    func loadAPIKey() -> String? {
+        if let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
+           let dictionary = NSDictionary(contentsOfFile: path) {
+            if let apiKey = dictionary["PEXELS_KEY"] as? String {
+                return apiKey
+            }
+        }
+        return nil
     }
     
     private func loadImage(from urlString: String) async -> UIImage? {

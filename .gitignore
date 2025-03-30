@@ -1,0 +1,7 @@
+# Xcode
+*.xcuserstate
+*.xcworkspace
+DerivedData/
+
+# Secrets
+Secrets.plist
