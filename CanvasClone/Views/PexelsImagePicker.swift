@@ -13,6 +13,8 @@ struct PexelsImagePicker: View {
     
     @Environment(\.dismiss) var dismiss
     
+    let onSelect: (UIImage) -> Void
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -32,6 +34,7 @@ struct PexelsImagePicker: View {
                                     .frame(width: 100, height: 100)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                                     .onTapGesture {
+                                        onSelect(image)
                                         dismiss()
                                     }
                             }
@@ -46,8 +49,4 @@ struct PexelsImagePicker: View {
             }
         }
     }
-}
-
-#Preview {
-    PexelsImagePicker()
 }
