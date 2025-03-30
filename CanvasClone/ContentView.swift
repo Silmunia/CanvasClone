@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            CanvasView()
+            CanvasView(imagesViewModel: viewModel)
         }
         .sheet(isPresented: $showImagePicker) {
             PexelsImagePicker { selectedImage in
