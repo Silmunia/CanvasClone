@@ -22,6 +22,19 @@ struct PexelsImagePicker: View {
                     Text("No images found").foregroundColor(.gray)
                 } else if let message = fetchErrorMessage {
                     Text(message).foregroundColor(.gray)
+                } else {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
+                            ForEach(images, id: \.self) { image in
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
+                        }
+                        .padding()
+                    }
                 }
             }
             .navigationTitle("Pick an Image")
