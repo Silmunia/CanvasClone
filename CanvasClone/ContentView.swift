@@ -15,6 +15,9 @@ struct ContentView: View {
         VStack {
             CanvasView()
         }
+        .sheet(isPresented: $showImagePicker) {
+            PexelsImagePicker()
+        }
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
