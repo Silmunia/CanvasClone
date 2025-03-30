@@ -8,7 +8,7 @@
 import SwiftUI
 
 class CanvasImagesViewModel: ObservableObject {
-    @Published private var canvasImages: [CanvasImage] = []
+    @Published var canvasImages: [CanvasImage] = []
     
     func addNewImage(image: UIImage) {
         

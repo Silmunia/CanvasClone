@@ -11,12 +11,18 @@ struct CanvasView: View {
     
     private let lineCount = max(3, Int(AppConstants.canvasWidth / AppConstants.canvasLineSpacing))
     
+    @StateObject var imagesViewModel: CanvasImagesViewModel
+    
     var body: some View {
         ScrollView([.horizontal, .vertical], showsIndicators: true) {
             ZStack {
                 Color(.gray)
                     .opacity(0.2)
                     .frame(width: AppConstants.canvasWidth, height: AppConstants.canvasHeight)
+                
+                ForEach(imagesViewModel.canvasImages) { image in
+                    DraggableImage(image: image)
+                }
                 
                 ForEach(0..<lineCount, id: \.self) { line in
                     let xPosition = CGFloat(line) * (AppConstants.canvasWidth / CGFloat(lineCount))
@@ -33,8 +39,4 @@ struct CanvasView: View {
         .shadow(radius: 10)
         .padding()
     }
-}
-
-#Preview {
-    CanvasView()
 }
