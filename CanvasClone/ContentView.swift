@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @StateObject var viewModel = CanvasImagesViewModel()
     @State private var showImagePicker = false
     
     var body: some View {
@@ -16,7 +16,9 @@ struct ContentView: View {
             CanvasView()
         }
         .sheet(isPresented: $showImagePicker) {
-            PexelsImagePicker()
+            PexelsImagePicker { selectedImage in
+                viewModel.addNewImage(image: selectedImage)
+            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
