@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		961DA09D2D99E6B700AB1E9C /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961DA09C2D99E6B700AB1E9C /* Secrets.plist */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		961DA01A2D99BEA200AB1E9C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		961DA0092D99BE9D00AB1E9C /* CanvasClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanvasClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		961DA0192D99BEA200AB1E9C /* CanvasCloneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanvasCloneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		961DA0232D99BEA200AB1E9C /* CanvasCloneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanvasCloneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		961DA09C2D99E6B700AB1E9C /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		961DA0002D99BE9D00AB1E9C = {
 			isa = PBXGroup;
 			children = (
+				961DA09C2D99E6B700AB1E9C /* Secrets.plist */,
 				961DA00B2D99BE9D00AB1E9C /* CanvasClone */,
 				961DA01C2D99BEA200AB1E9C /* CanvasCloneTests */,
 				961DA0262D99BEA200AB1E9C /* CanvasCloneUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				961DA09D2D99E6B700AB1E9C /* Secrets.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +405,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CanvasClone/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -426,6 +434,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CanvasClone/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
