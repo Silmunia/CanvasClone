@@ -14,10 +14,10 @@ struct ContentView: View {
                 ZStack {
                     Color(.gray)
                         .opacity(0.2)
-                        .frame(width: 400, height: 400)
+                        .frame(width: AppConstants.canvasWidth, height: AppConstants.canvasHeight)
                 }
             }
-            .frame(width: 400, height: 400)
+            .frame(width: AppConstants.canvasFrameWidth, height: AppConstants.canvasFrameHeight)
             .background(Color.white)
             .cornerRadius(20)
             .shadow(radius: 10)
