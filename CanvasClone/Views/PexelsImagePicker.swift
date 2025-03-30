@@ -10,11 +10,14 @@ import SwiftUI
 struct PexelsImagePicker: View {
     
     @State private var fetchErrorMessage: String?
+    @State private var isLoading = true
     
     var body: some View {
         NavigationView {
             VStack {
-                if let message = fetchErrorMessage {
+                if isLoading {
+                    ProgressView("Loading images...").padding()
+                } else if let message = fetchErrorMessage {
                     Text(message).foregroundColor(.gray)
                 }
             }
@@ -31,6 +34,7 @@ struct PexelsImagePicker: View {
         
         guard let url = URL(string: urlString) else {
             fetchErrorMessage = "Invalid URL request"
+            isLoading = false
             return
         }
     }
