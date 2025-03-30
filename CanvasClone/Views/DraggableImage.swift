@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct DraggableImage: View {
+    
+    var image: CanvasImage
+    
     var body: some View {
-        ZStack {
-            
-        }
+        Image(uiImage: image.uiImage)
+            .resizable()
+            .scaledToFit()
+            .frame(
+                width: 100,
+                height: 100
+            )
+            .position(image.position)
     }
 }
