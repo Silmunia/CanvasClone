@@ -29,4 +29,21 @@ class CanvasImagesViewModel: ObservableObject {
         canvasImages.append(newImage)
     }
     
+    func updateImagePosition(imageID: UUID, newPosition: CGPoint) {
+        if let index = canvasImages.firstIndex(where: { $0.id == imageID }) {
+            var updatedImage = canvasImages[index]
+            
+            updatedImage.position = applyBoundsToPosition(position: newPosition)
+            
+            canvasImages[index] = updatedImage
+        }
+    }
+    
+    private func applyBoundsToPosition(position: CGPoint) -> CGPoint {
+        let x = min(max(position.x, 0), AppConstants.canvasWidth)
+        let y = min(max(position.y, 0), AppConstants.canvasHeight)
+        
+        return CGPoint(x: x, y: y)
+    }
+    
 }
