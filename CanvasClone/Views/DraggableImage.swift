@@ -40,6 +40,7 @@ struct DraggableImage: View {
                     image.position = value.location
                     selectedImageID = image.id
                 }
+            
         )
         .onTapGesture {
             selectedImageID = image.id

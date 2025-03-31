@@ -9,6 +9,11 @@ import SwiftUI
 
 class CanvasImagesViewModel: ObservableObject {
     @Published var canvasImages: [CanvasImage] = []
+    @Published var selectedImageID: UUID?
+    
+    func updateSelectedImage(newId: UUID?) {
+        selectedImageID = newId
+    }
     
     func addNewImage(image: UIImage) {
         
