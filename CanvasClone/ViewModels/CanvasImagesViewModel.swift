@@ -124,7 +124,9 @@ class CanvasImagesViewModel: ObservableObject {
         && abs(imagePosition.y - AppConstants.canvasHeight * 0.5) < snapThreshold
     }
     
-    func applySnapping(imageID: UUID, snappingTarget: (horizontal: CGFloat?, vertical: CGFloat?)) {
+    func applySnapping(imageID: UUID, snappingTarget: (horizontal: CGFloat?, vertical: CGFloat?), currentPosition: CGPoint) {
+        
+        let imageBorders = calculateImageBorders(imagePosition: currentPosition)
         
         guard let index = canvasImages.firstIndex(where: { $0.id == imageID }) else {
             return
@@ -133,14 +135,44 @@ class CanvasImagesViewModel: ObservableObject {
         var updatedImage = canvasImages[index]
         
         if let snapX = snappingTarget.vertical {
-            updatedImage.position.x = snapX
+            if isImageSnappingVerticallyToCanvas(imagePosition: currentPosition) {
+                updatedImage.position.x = snapX
+            } else if currentPosition.x >= snapX {
+                updatedImage.position.x = snapX + (0.5 * AppConstants.basicImageSize)
+            } else {
+                updatedImage.position.x = snapX - (0.5 * AppConstants.basicImageSize)
+            }
         }
         
         if let snapY = snappingTarget.horizontal {
-            updatedImage.position.y = snapY
+            if isImageSnappingHorizontallyToCanvas(imagePosition: currentPosition) {
+                updatedImage.position.y = snapY
+            } else if currentPosition.y >= snapY {
+                updatedImage.position.y = snapY + (0.5 * AppConstants.basicImageSize)
+            } else {
+                updatedImage.position.y = snapY - (0.5 * AppConstants.basicImageSize)
+            }
         }
         
         canvasImages[index] = updatedImage
+    }
+    
+    private func isImageSnappingVerticallyToCanvas(imagePosition: CGPoint) -> Bool {
+        
+        let imageBorders = calculateImageBorders(imagePosition: imagePosition)
+        
+        return imageBorders.left < snapThreshold
+            || abs(imageBorders.right - AppConstants.canvasWidth) < snapThreshold
+        || isNearCanvasCenter(imagePosition: imagePosition)
+    }
+    
+    private func isImageSnappingHorizontallyToCanvas(imagePosition: CGPoint) -> Bool {
+        
+        let imageBorders = calculateImageBorders(imagePosition: imagePosition)
+        
+        return imageBorders.top < snapThreshold
+            || abs(imageBorders.bottom - AppConstants.canvasHeight) < snapThreshold
+        || isNearCanvasCenter(imagePosition: imagePosition)
     }
     
 }
