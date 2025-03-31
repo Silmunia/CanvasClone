@@ -27,8 +27,8 @@ struct CanvasView: View {
                 
                 ForEach($imagesViewModel.canvasImages) { image in
                     DraggableImage(
-                        image: image,
-                        selectedImageID: $imagesViewModel.selectedImageID
+                        viewModel: imagesViewModel,
+                        image: image
                     )
                 }
                 
