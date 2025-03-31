@@ -23,8 +23,8 @@ struct DraggableImage: View {
                 .resizable()
                 .scaledToFit()
                 .frame(
-                    width: AppConstants.basicImageSize,
-                    height: AppConstants.basicImageSize
+                    width: AppConstants.basicImageSize * scale,
+                    height: AppConstants.basicImageSize * scale
                 )
                 .position(image.position)
             
@@ -32,8 +32,8 @@ struct DraggableImage: View {
                 Rectangle()
                     .fill(Color.blue.opacity(0.3))
                     .frame(
-                        width: AppConstants.basicImageSize + 4,
-                        height: AppConstants.basicImageSize + 4
+                        width: (AppConstants.basicImageSize * scale) + 4,
+                        height: (AppConstants.basicImageSize * scale) + 4
                     )
                     .position(image.position)
                     .allowsHitTesting(false)
@@ -60,11 +60,11 @@ struct DraggableImage: View {
                 .onChanged { value in
                     image.position = value.location
                     viewModel.selectedImageID = image.id
-                    snappingLines = viewModel.updateSnapping(imageID: image.id, currentPosition: image.position)
+                    snappingLines = viewModel.updateSnapping(imageID: image.id, currentPosition: image.position, imageScale: scale)
                 }
                 .onEnded { _ in
-                    viewModel.applySnapping(imageID: image.id, snappingTarget: snappingLines, currentPosition: image.position)
-                    viewModel.updateImagePosition(imageID: image.id, newPosition: image.position)
+                    viewModel.applySnapping(imageID: image.id, snappingTarget: snappingLines, currentPosition: image.position, imageScale: scale)
+                    viewModel.updateImagePosition(imageID: image.id, newPosition: image.position, imageScale: scale)
                     snappingLines = (nil, nil)
                 }
         )
