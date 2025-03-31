@@ -63,6 +63,7 @@ struct DraggableImage: View {
                 .onEnded { _ in
                     viewModel.applySnapping(imageID: image.id, snappingTarget: snappingLines, currentPosition: image.position)
                     viewModel.updateImagePosition(imageID: image.id, newPosition: image.position)
+                    snappingLines = (nil, nil)
                 }
         )
         .onTapGesture {
