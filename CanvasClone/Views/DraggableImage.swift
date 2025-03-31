@@ -61,7 +61,7 @@ struct DraggableImage: View {
                     snappingLines = viewModel.updateSnapping(imageID: image.id, currentPosition: image.position)
                 }
                 .onEnded { _ in
-                    viewModel.applySnapping(imageID: image.id, snappingTarget: snappingLines)
+                    viewModel.applySnapping(imageID: image.id, snappingTarget: snappingLines, currentPosition: image.position)
                     viewModel.updateImagePosition(imageID: image.id, newPosition: image.position)
                 }
         )
