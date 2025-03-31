@@ -9,8 +9,9 @@ import SwiftUI
 
 struct DraggableImage: View {
     
+    @ObservedObject var viewModel: CanvasImagesViewModel
+    
     @Binding var image: CanvasImage
-    @Binding var selectedImageID: UUID?
     
     var body: some View {
         ZStack {
@@ -23,7 +24,7 @@ struct DraggableImage: View {
                 )
                 .position(image.position)
             
-            if selectedImageID == image.id {
+            if viewModel.selectedImageID == image.id {
                 Rectangle()
                     .fill(Color.blue.opacity(0.3))
                     .frame(
@@ -38,12 +39,14 @@ struct DraggableImage: View {
             DragGesture()
                 .onChanged { value in
                     image.position = value.location
-                    selectedImageID = image.id
+                    viewModel.selectedImageID = image.id
                 }
-            
+                .onEnded { _ in
+                    viewModel.updateImagePosition(imageID: image.id, newPosition: image.position)
+                }
         )
         .onTapGesture {
-            selectedImageID = image.id
+            viewModel.selectedImageID = image.id
         }
     }
 }
