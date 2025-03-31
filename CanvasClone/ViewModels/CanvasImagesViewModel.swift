@@ -11,6 +11,8 @@ class CanvasImagesViewModel: ObservableObject {
     @Published var canvasImages: [CanvasImage] = []
     @Published var selectedImageID: UUID?
     
+    private let snapThreshold: CGFloat = 15
+    
     func updateSelectedImage(newId: UUID?) {
         selectedImageID = newId
     }
@@ -44,6 +46,46 @@ class CanvasImagesViewModel: ObservableObject {
         let y = min(max(position.y, 0), AppConstants.canvasHeight)
         
         return CGPoint(x: x, y: y)
+    }
+    
+    func updateSnapping(currentPosition: CGPoint) -> (horizontal: CGFloat?, vertical: CGFloat?) {
+        
+        var newSnappingLines: (horizontal: CGFloat?, vertical: CGFloat?) = (nil, nil)
+        
+        let imageBorders = calculateImageBorders(imagePosition: currentPosition)
+        
+        if imageBorders.left < snapThreshold {
+            newSnappingLines.vertical = 0
+        }
+        if abs(imageBorders.right - AppConstants.canvasWidth) < snapThreshold {
+            newSnappingLines.vertical = AppConstants.canvasWidth
+        }
+        if imageBorders.top < snapThreshold {
+            newSnappingLines.horizontal = 0
+        }
+        if abs(imageBorders.bottom - AppConstants.canvasHeight) < snapThreshold {
+            newSnappingLines.horizontal = AppConstants.canvasHeight
+        }
+        if isNearCanvasCenter(imagePosition: currentPosition) {
+            newSnappingLines.vertical = 0.5 * AppConstants.canvasWidth
+            newSnappingLines.horizontal = 0.5 * AppConstants.canvasHeight
+        }
+        
+        return newSnappingLines
+    }
+    
+    func calculateImageBorders(imagePosition: CGPoint) -> (top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
+        let imageLeft = imagePosition.x - (0.5 * AppConstants.basicImageSize)
+        let imageRight = imagePosition.x + (0.5 * AppConstants.basicImageSize)
+        let imageTop = imagePosition.y - (0.5 * AppConstants.basicImageSize)
+        let imageBottom = imagePosition.y + (0.5 * AppConstants.basicImageSize)
+        
+        return (top: imageTop, right: imageRight, bottom: imageBottom, left: imageLeft)
+    }
+    
+    func isNearCanvasCenter(imagePosition: CGPoint) -> Bool {
+        return abs(imagePosition.x - AppConstants.canvasWidth * 0.5) < snapThreshold
+        && abs(imagePosition.y - AppConstants.canvasHeight * 0.5) < snapThreshold
     }
     
 }
