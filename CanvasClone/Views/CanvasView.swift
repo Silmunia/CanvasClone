@@ -9,9 +9,11 @@ import SwiftUI
 
 struct CanvasView: View {
     
-    private let lineCount = max(3, Int(AppConstants.canvasWidth / AppConstants.canvasLineSpacing))
+    @State private var selectedImageID: UUID? = nil
     
     @StateObject var imagesViewModel: CanvasImagesViewModel
+    
+    private let lineCount = max(3, Int(AppConstants.canvasWidth / AppConstants.canvasLineSpacing))
     
     var body: some View {
         ScrollView([.horizontal, .vertical], showsIndicators: true) {
@@ -19,9 +21,15 @@ struct CanvasView: View {
                 Color(.gray)
                     .opacity(0.2)
                     .frame(width: AppConstants.canvasWidth, height: AppConstants.canvasHeight)
+                    .onTapGesture {
+                        selectedImageID = nil
+                    }
                 
                 ForEach(imagesViewModel.canvasImages) { image in
-                    DraggableImage(image: image)
+                    DraggableImage(
+                        image: image,
+                        selectedImageID: $selectedImageID
+                    )
                 }
                 
                 ForEach(0..<lineCount, id: \.self) { line in
