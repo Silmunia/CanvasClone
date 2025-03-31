@@ -11,6 +11,8 @@ struct ContentView: View {
     @StateObject var viewModel = CanvasImagesViewModel()
     @State private var showImagePicker = false
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack {
             CanvasView(imagesViewModel: viewModel)
@@ -28,9 +30,9 @@ struct ContentView: View {
                 }) {
                     Text("+")
                         .font(.system(size: 40))
-                        .foregroundColor(.blue)
+                        .foregroundColor(colorScheme == .dark ? .black : .blue)
                         .frame(width: 60, height: 60)
-                        .background(Circle().fill(Color.white).shadow(radius: 5))
+                        .background(Circle().fill(.white).shadow(radius: 5))
                 }
                 Spacer()
             }
