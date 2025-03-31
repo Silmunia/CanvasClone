@@ -26,12 +26,12 @@ struct PexelsImagePicker: View {
                     Text(message).foregroundColor(.gray)
                 } else {
                     ScrollView {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: AppConstants.basicImageSize))], spacing: 10) {
                             ForEach(viewModel.images, id: \.self) { image in
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: AppConstants.basicImageSize, height: AppConstants.basicImageSize)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                                     .onTapGesture {
                                         onSelect(image)
