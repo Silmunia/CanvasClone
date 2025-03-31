@@ -65,7 +65,7 @@ class CanvasImagesViewModel: ObservableObject {
         return CGPoint(x: newX, y: newY)
     }
     
-    func updateSnapping(currentPosition: CGPoint) -> (horizontal: CGFloat?, vertical: CGFloat?) {
+    func updateSnapping(imageID: UUID, currentPosition: CGPoint) -> (horizontal: CGFloat?, vertical: CGFloat?) {
         
         var newSnappingLines: (horizontal: CGFloat?, vertical: CGFloat?) = (nil, nil)
         
@@ -86,6 +86,25 @@ class CanvasImagesViewModel: ObservableObject {
         if isNearCanvasCenter(imagePosition: currentPosition) {
             newSnappingLines.vertical = 0.5 * AppConstants.canvasWidth
             newSnappingLines.horizontal = 0.5 * AppConstants.canvasHeight
+        }
+        
+        for other in canvasImages where other.id != imageID {
+            let otherBorders = calculateImageBorders(imagePosition: other.position)
+            
+            if abs(currentPosition.y - other.position.y) < (0.5 * AppConstants.basicImageSize) {
+                if abs(imageBorders.left - otherBorders.right) < snapThreshold {
+                    newSnappingLines.vertical = otherBorders.right
+                } else if abs(imageBorders.right - otherBorders.left) < snapThreshold {
+                    newSnappingLines.vertical = otherBorders.left
+                }
+            }
+            if abs(currentPosition.x - other.position.x) < (0.5 * AppConstants.basicImageSize) {
+                if abs(imageBorders.top - otherBorders.bottom) < snapThreshold {
+                    newSnappingLines.horizontal = otherBorders.bottom
+                } else if abs(imageBorders.bottom - otherBorders.top) < snapThreshold {
+                    newSnappingLines.horizontal = otherBorders.top
+                }
+            }
         }
         
         return newSnappingLines
