@@ -14,6 +14,8 @@ struct DraggableImage: View {
     @Binding var image: CanvasImage
     
     @State private var snappingLines: (horizontal: CGFloat?, vertical: CGFloat?) = (nil, nil)
+    @State private var scale: CGFloat = 1.0
+    @State private var lastScale: CGFloat = 1.0
     
     var body: some View {
         ZStack {
@@ -64,6 +66,15 @@ struct DraggableImage: View {
                     viewModel.applySnapping(imageID: image.id, snappingTarget: snappingLines, currentPosition: image.position)
                     viewModel.updateImagePosition(imageID: image.id, newPosition: image.position)
                     snappingLines = (nil, nil)
+                }
+        )
+        .gesture (
+            MagnificationGesture()
+                .onChanged { value in
+                    scale = lastScale * value
+                }
+                .onEnded { _ in
+                    lastScale = scale
                 }
         )
         .onTapGesture {
