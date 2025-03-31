@@ -13,12 +13,14 @@ struct CanvasView: View {
     
     @StateObject var imagesViewModel: CanvasImagesViewModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private let lineCount = max(3, Int(AppConstants.canvasWidth / AppConstants.canvasLineSpacing))
     
     var body: some View {
         ScrollView([.horizontal, .vertical], showsIndicators: true) {
             ZStack {
-                Color(.gray)
+                Color(colorScheme == .dark ? .black : .gray)
                     .opacity(0.2)
                     .frame(width: AppConstants.canvasWidth, height: AppConstants.canvasHeight)
                     .onTapGesture {
