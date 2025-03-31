@@ -42,10 +42,27 @@ class CanvasImagesViewModel: ObservableObject {
     }
     
     private func applyBoundsToPosition(position: CGPoint) -> CGPoint {
-        let x = min(max(position.x, 0), AppConstants.canvasWidth)
-        let y = min(max(position.y, 0), AppConstants.canvasHeight)
+        let imageBorders = calculateImageBorders(imagePosition: position)
+        var newX: CGFloat = position.x
+        var newY: CGFloat = position.y
         
-        return CGPoint(x: x, y: y)
+        if (imageBorders.left < 0 || imageBorders.right < 0) {
+            newX = 0.5 * AppConstants.basicImageSize
+        }
+        
+        if (imageBorders.left > AppConstants.canvasWidth || imageBorders.right > AppConstants.canvasWidth) {
+            newX = AppConstants.canvasWidth - (0.5 * AppConstants.basicImageSize)
+        }
+        
+        if (imageBorders.top < 0 || imageBorders.bottom < 0) {
+            newY = 0.5 * AppConstants.basicImageSize
+        }
+        
+        if (imageBorders.top > AppConstants.canvasHeight || imageBorders.bottom > AppConstants.canvasHeight) {
+            newY = AppConstants.canvasHeight - (0.5 * AppConstants.basicImageSize)
+        }
+        
+        return CGPoint(x: newX, y: newY)
     }
     
     func updateSnapping(currentPosition: CGPoint) -> (horizontal: CGFloat?, vertical: CGFloat?) {
