@@ -12,6 +12,7 @@ struct CanvasView: View {
     @State private var selectedImageID: UUID? = nil
     
     @StateObject var imagesViewModel: CanvasImagesViewModel
+    @StateObject var draggableImagesViewModel = DraggableImagesViewModel()
     
     private let lineCount = max(3, Int(AppConstants.canvasWidth / AppConstants.canvasLineSpacing))
     
@@ -22,13 +23,13 @@ struct CanvasView: View {
                     .opacity(0.2)
                     .frame(width: AppConstants.canvasWidth, height: AppConstants.canvasHeight)
                     .onTapGesture {
-                        selectedImageID = nil
+                        draggableImagesViewModel.updateSelectedImage(newId: nil)
                     }
                 
                 ForEach($imagesViewModel.canvasImages) { image in
                     DraggableImage(
                         image: image,
-                        selectedImageID: $selectedImageID
+                        selectedImageID: $draggableImagesViewModel.selectedImageID
                     )
                 }
                 
