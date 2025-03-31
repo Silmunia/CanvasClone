@@ -14,5 +14,6 @@ struct AppConstants {
     static let canvasFrameWidth: CGFloat = 400
     static let canvasFrameHeight: CGFloat = 400
     
+    static let basicImageSize: CGFloat = 100
     static let canvasLineSpacing: CGFloat = 200
 }
