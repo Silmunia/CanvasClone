@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DraggableImage: View {
     
-    var image: CanvasImage
+    @Binding var image: CanvasImage
     @Binding var selectedImageID: UUID?
     
     var body: some View {
@@ -34,6 +34,13 @@ struct DraggableImage: View {
                     .allowsHitTesting(false)
             }
         }
+        .gesture (
+            DragGesture()
+                .onChanged { value in
+                    image.position = value.location
+                    selectedImageID = image.id
+                }
+        )
         .onTapGesture {
             selectedImageID = image.id
         }
