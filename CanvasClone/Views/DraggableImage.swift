@@ -19,8 +19,8 @@ struct DraggableImage: View {
                 .resizable()
                 .scaledToFit()
                 .frame(
-                    width: 100,
-                    height: 100
+                    width: AppConstants.basicImageSize,
+                    height: AppConstants.basicImageSize
                 )
                 .position(image.position)
             
@@ -28,8 +28,8 @@ struct DraggableImage: View {
                 Rectangle()
                     .fill(Color.blue.opacity(0.3))
                     .frame(
-                        width: 104,
-                        height: 104
+                        width: AppConstants.basicImageSize + 4,
+                        height: AppConstants.basicImageSize + 4
                     )
                     .position(image.position)
                     .allowsHitTesting(false)
